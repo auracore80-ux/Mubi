@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUBINA OPASH UCHUN SEHRLI SOVGA ✨</title>
+    <style>
+        /* Asosiy stillar: Koinot fonini yaratamiz */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Skroll bo'lmasligi uchun */
+            background: radial-gradient(circle at center, #1a0033 0%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            perspective: 1000px; /* 3D effekt uchun */
+        }
+
+        /* Orqa fondagi yulduzlar effektini beruvchi konteyner */
+        #stars-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* 3D Matn konteyneri */
+        .wavy-text-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            transform-style: preserve-3d; /* Bolalar elementlari 3D bo'lishi uchun */
+            transition: transform 0.1s ease-out; /* Sichqonchaga silliq ergashish */
+        }
+
+        /* Har bir harf uchun yaltirash effekti */
+        .letter {
+            display: inline-block;
+            font-size: 8rem; /* Katta harflar */
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 
+                0 0 10px #ff00de, 
+                0 0 20px #ff00de, 
+                0 0 40px #ff00de, 
+                0 0 80px #ff00de; /* Neon nur sochish */
+            animation: animateWavy 2s infinite ease-in-out, animateColor 5s infinite linear;
+            position: relative;
+            transform-origin: center bottom;
+        }
+
+        /* Kichik ekranlar uchun harf hajmini moslashtirish */
+        @media (max-width: 768px) {
+            .letter { font-size: 4rem; }
+            .sub-text { font-size: 1.5rem !important; }
+        }
+
+        /* Harflarning to'lqinsimon harakati */
+        @keyframes animateWavy {
+            0%, 100% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-30px) rotateX(20deg); }
+        }
+
+        /* Ranglarning o'zgarishi (Yaltirash) */
+        @keyframes animateColor {
+            0% { color: #fff; text-shadow: 0 0 20px #ff00de; }
+            25% { color: #ffe6f7; text-shadow: 0 0 30px #00d2ff; }
+            50% { color: #ffcccc; text-shadow: 0 0 20px #bc00ff; }
+            75% { color: #fff; text-shadow: 0 0 30px #00ff89; }
+            100% { color: #fff; text-shadow: 0 0 20px #ff00de; }
+        }
+
+        /* Pastdagi qo'shimcha matn */
+        .sub-text {
+            display: block;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: -20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: fadeIn 3s ease-in;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Yulduzli fon -->
+    <div id="stars-container"></div>
+
+    <!-- 3D Harakatlanuvchi Matn -->
+    <div class="wavy-text-container" id="textContainer">
+        <!-- Har bir harf JavaScript orqali animatsiya uchun alohida kiritiladi -->
+        <span class="letter">M</span>
+        <span class="letter">U</span>
+        <span class="letter">B</span>
+        <span class="letter">I</span>
+        <span class="letter">N</span>
+        <span class="letter">A</span>
+        <span class="sub-text"><br>sizni sevaman! 😘✨</span>
+    </div>
+
+    <script>
+        // 1. Harflarga kechikish berish (To'lqin effekti uchun)
+        const letters = document.querySelectorAll('.letter');
+        letters.forEach((letter, index) => {
+            letter.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // 2. Fon uchun yulduzlar yaratish
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = 150; // Yulduzlar soni
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'absolute';
+                star.style.backgroundColor = '#fff';
+                star.style.borderRadius = '50%';
+                
+                // Tasodifiy o'lcham, joylashuv va xiralik
+                const size = Math.random() * 3 + 'px';
+                star.style.width = size;
+                star.style.height = size;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.opacity = Math.random() * 0.8;
+
+                // Miltillash animatsiyasi
+                star.style.animation = `twinkle ${Math.random() * 5 + 2}s infinite linear`;
+                
+                container.appendChild(star);
+            }
+        }
+
+        // Miltillash animatsiyasi uchun CSS stilini qo'shish
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes twinkle {
+                0%, 100% { opacity: 0.2; }
+                50% { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 3. Sichqoncha harakatiga qarab 3D effekt
+        const container = document.getElementById('textContainer');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25; // Burilish darajasi
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        // Sahifa yuklanganda yulduzlarni yaratish
+        window.onload = createStars;
+    </script>
+
+</body>
+</html>
